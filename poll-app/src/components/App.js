@@ -1,5 +1,7 @@
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom"
+import axios from "axios";
+
 
 import Home from "./Home";
 import Header from "./Header";
@@ -11,7 +13,16 @@ import PollEdit from "./Polls/PollEdit";
 import PollList from "./Polls/PollList";
 import PollShow from "./Polls/PollShow";
 
+axios.defaults.withCredentials = true;
+
+
 const App = () => {
+
+  const token = localStorage.getItem('token');
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = token;
+  }
+
   return (
     <div>
       <BrowserRouter>

@@ -1,4 +1,4 @@
-import {GET_POLLS, POLLS_ERROR} from "./types";
+import {ADD_POLL, GET_POLLS, POLLS_ERROR} from "./types";
 import axios from 'axios'
 
 export const getPolls = () => async dispatch => {
@@ -15,5 +15,20 @@ export const getPolls = () => async dispatch => {
       payload: console.log(e),
     })
   }
+}
 
+
+export const addPoll = pollObj => {
+  return (dispatch) => {
+    axios.post("http://localhost:8000/poll/", pollObj)
+      .then(response => {
+        dispatch({
+          type: ADD_POLL,
+          payload: response.data
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 }

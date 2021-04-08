@@ -20,21 +20,27 @@ const App = () => {
 
   const token = localStorage.getItem('access_token');
   if (token) {
-    axios.defaults.headers.common['Authorization'] = "Bearer "+ token;
+    axios.defaults.headers.common['Authorization'] = "Bearer " + token;
   }
+
+  // const token = localStorage.getItem('token');
+  // if (token) {
+  //   axios.defaults.headers.common['Authorization'] = token;
+  // }
+
 
   return (
     <div>
       <BrowserRouter>
-          <Header/>
-          <Route path="/" exact component={Home}/>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/register" exact component={Register}/>
-          <Route path="/polls/create" exact component={PollCreate}/>
-          <Route path="/polls/delete" exact component={PollDelete}/>
-          <Route path="/polls/edit" exact component={PollEdit}/>
-          <Route path="/polls/list" exact component={PollList}/>
-          <Route path="/polls/show" exact component={PollShow}/>
+        <Header/>
+        <Route path="/" exact component={Home}/>
+        <Route path="/login" exact component={Login}/>
+        <Route path="/register" exact component={Register}/>
+        <Route path="/polls/create" exact component={PollCreate}/>
+        <Route path="/polls/delete" exact component={PollDelete}/>
+        <Route path="/polls/edit" exact component={PollEdit}/>
+        <Route path="/polls/list" exact component={PollList}/>
+        <Route path="/polls/show" exact component={PollShow}/>
       </BrowserRouter>
     </div>
   )

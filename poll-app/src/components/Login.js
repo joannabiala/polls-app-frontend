@@ -18,6 +18,7 @@ import FacebookLogin from "../axios/facebookLogin";
 import FbLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import googleLogin from "../axios/googleLogin";
+import axios from "../axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,6 +67,32 @@ export default function SignIn() {
       [e.target.name]: e.target.value.trim(),
     });
   };
+
+
+  const handleSubmitLogin = (event) => {
+    event.preventDefault();
+
+    const data = {
+      username: formData.email,
+      email: formData.username,
+      password: formData.password,
+    };
+
+    axios.post('http://127.0.0.1:8000/auth/', data)
+      .then((response) => {
+
+        const token = `Token ${response.data.token}`
+        axios.defaults.headers.common['Authorization'] = token;
+
+        localStorage.setItem('token', token);
+
+      })
+      .catch((error) => {
+        alert('Ups! Something went wrong, try again later.')
+        console.log(error);
+      })
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -133,7 +160,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSubmit}
+            onClick={handleSubmitLogin}
           >
             Sign In
           </Button>

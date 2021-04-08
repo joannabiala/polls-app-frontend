@@ -18,9 +18,9 @@ axios.defaults.withCredentials = true;
 
 const App = () => {
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('access_token');
   if (token) {
-    axios.defaults.headers.common['Authorization'] = token;
+    axios.defaults.headers.common['Authorization'] = "Bearer "+ token;
   }
 
   return (

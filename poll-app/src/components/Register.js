@@ -56,6 +56,7 @@ export default function SignIn() {
   const history = useHistory();
   const initialFormData = Object.freeze({
     username: '',
+    email: '',
     password: '',
   });
 
@@ -67,7 +68,6 @@ export default function SignIn() {
       [e.target.name]: e.target.value.trim(),
     });
   };
-
 
 
   const handleSubmitRegister = (event) => {
@@ -89,6 +89,7 @@ export default function SignIn() {
       })
       .catch((error) => {
         console.log(error);
+
       })
   }
 
@@ -178,21 +179,6 @@ export default function SignIn() {
           >
             Sign In
           </Button>
-
-          <FbLogin
-            appId={process.env.REACT_APP_FB_APP_ID}
-            autoLoad={true}
-            fields="name,email,picture"
-            // onClick={componentClicked}
-            callback={responseFacebook}
-          />
-          <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
 
           <Grid container>
             <Grid item xs>

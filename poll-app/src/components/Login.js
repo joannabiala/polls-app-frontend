@@ -73,8 +73,8 @@ export default function SignIn() {
     event.preventDefault();
 
     const data = {
-      username: formData.email,
-      email: formData.username,
+      username: formData.username,
+      email: formData.email,
       password: formData.password,
     };
 
@@ -135,6 +135,18 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            autoFocus
+            onChange={handleChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username Address"
+            name="username"
+            autoComplete="username"
             autoFocus
             onChange={handleChange}
           />

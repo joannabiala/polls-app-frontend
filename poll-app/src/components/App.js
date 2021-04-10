@@ -18,15 +18,16 @@ axios.defaults.withCredentials = true;
 
 const App = () => {
 
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = "Bearer " + token;
+  const access_token = localStorage.getItem('access_token');
+  if (access_token) {
+    axios.defaults.headers.common['Authorization'] = "Bearer " + access_token;
   }
 
-  // const token = localStorage.getItem('token');
-  // if (token) {
-  //   axios.defaults.headers.common['Authorization'] = token;
-  // }
+  const token = localStorage.getItem('token');
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = token;
+    console.log(token)
+  }
 
 
   return (

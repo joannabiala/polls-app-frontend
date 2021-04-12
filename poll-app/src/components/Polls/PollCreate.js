@@ -1,47 +1,69 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {addPoll} from "../../actions/pollsActions";
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 
-class PollCreate extends Component {
-  state = {
-    poll_name: "",
-    poll_description: ""
+class PollCreate extends React.Component {
+  renderError({ error, touched }) {
+    if (touched && error) {
+      return (
+        <div className="ui error message">
+          <div className="header">{error}</div>
+        </div>
+      );
+    }
   }
 
-  handleTextChange = event => {
-    const {target: {name, value}} = event;
-    this.setState({ [name]: value });
-  }
-
-
-  handleOnSubmit = event => {
-    event.preventDefault();
-    this.props.addPoll(this.state);
-    this.setState({
-      poll_name: "",
-      poll_description: ""
-    });
-  }
-
-  render(){
-    return(
-      <div className="form-container">
-        <form onSubmit={this.handleOnSubmit}>
-          <div className="form-group">
-            <label>Poll name</label>
-            <input onChange={this.handleTextChange} value={this.state.poll_name} type="text" name="poll_name" className="form-control" placeholder="Name" />
-          </div>
-          <div className="form-group">
-            <label>Poll description</label>
-            <input onChange={this.handleTextChange} value={this.state.poll_description} type="text" name="poll_description" className="form-control" placeholder="City" />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary" type="submit">Add poll</button>
-          </div>
-        </form>
+  renderInput = ({ input, label, meta }) => {
+    const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
+    return (
+      <div className={className}>
+        <label>{label}</label>
+        <input {...input} autoComplete="off" />
+        {this.renderError(meta)}
       </div>
+    );
+  };
+
+  onSubmit(formValues) {
+    console.log(formValues);
+  }
+
+  render() {
+    return (
+      <form
+        onSubmit={this.props.handleSubmit(this.onSubmit)}
+        className="ui form error"
+      >
+        <Field
+          name="title"
+          component={this.renderInput}
+          label="Tytuł ankiety"
+        />
+        <Field
+          name="description"
+          component={this.renderInput}
+          label="Opis ankiety"
+        />
+        <button className="ui button primary">Wyślij</button>
+      </form>
     );
   }
 }
 
-export default connect(null, { addPoll })(PollCreate);
+const validate = formValues => {
+  const errors = {};
+
+  if (!formValues.title) {
+    errors.title = 'Wprowadź tytuł ankiety!';
+  }
+
+  if (!formValues.description) {
+    errors.description = 'Wprowadź opis ankiety!';
+  }
+
+  return errors;
+};
+
+export default reduxForm({
+  form: 'pollCreate',
+  validate
+})(PollCreate);

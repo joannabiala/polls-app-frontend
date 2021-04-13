@@ -1,9 +1,5 @@
-import {SIGN_IN, SIGN_OUT, GET_POLLS, POLLS_ERROR} from "./types";
+import {SIGN_IN, SIGN_OUT} from "./types";
 import axios from "axios";
-
-
-
-
 
 export const signIn =(userId)=>{
   return{
@@ -19,3 +15,6 @@ export const signOut = () =>{
 }
 
 
+export const createPoll = (formValues) => async (dispatch)=>{
+  await axios.post('http://localhost:8000/poll/', formValues)
+};

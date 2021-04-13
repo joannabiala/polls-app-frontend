@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import {connect} from "react-redux";
+import {createPoll} from '../../actions';
 
 class PollCreate extends React.Component {
   renderError({ error, touched }) {
@@ -23,8 +25,8 @@ class PollCreate extends React.Component {
     );
   };
 
-  onSubmit(formValues) {
-    console.log(formValues);
+  onSubmit = (formValues)=> {
+    this.props.createPoll(formValues);
   }
 
   render() {
@@ -34,12 +36,12 @@ class PollCreate extends React.Component {
         className="ui form error"
       >
         <Field
-          name="title"
+          name="poll_name"
           component={this.renderInput}
           label="Tytuł ankiety"
         />
         <Field
-          name="description"
+          name="poll_description"
           component={this.renderInput}
           label="Opis ankiety"
         />
@@ -52,18 +54,21 @@ class PollCreate extends React.Component {
 const validate = formValues => {
   const errors = {};
 
-  if (!formValues.title) {
-    errors.title = 'Wprowadź tytuł ankiety!';
+  if (!formValues.poll_name) {
+    errors.poll_name = 'Wprowadź tytuł ankiety!';
   }
 
-  if (!formValues.description) {
-    errors.description = 'Wprowadź opis ankiety!';
+  if (!formValues.poll_description) {
+    errors.poll_description = 'Wprowadź opis ankiety!';
   }
 
   return errors;
 };
 
-export default reduxForm({
+const formWrapped = reduxForm({
   form: 'pollCreate',
   validate
 })(PollCreate);
+
+
+export default connect(null, {createPoll})(formWrapped);

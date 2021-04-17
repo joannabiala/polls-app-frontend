@@ -18,6 +18,7 @@ class pollList extends Component {
           <React.Fragment key={u.id}>
             <h6 >{u.poll_name}</h6>
             <h6 >{u.poll_description}</h6>
+            <p>________________</p>
           </React.Fragment>
         )}
       </div>

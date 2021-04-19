@@ -57,7 +57,7 @@ const renderAnswers = ({fields, meta: {error}}) => (
           onClick={() => fields.remove(index)}
         />
         <Field
-          name={answer}
+          name={`${answer}.answer_description`}
           type="text"
           component={renderField}
           label={`Odpowiedź #${index + 1}`}

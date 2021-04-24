@@ -18,26 +18,25 @@ class pollList extends Component {
       <div>
         <h3>Moje ankiety</h3>
         {polls.map(item => {
-          const linkTo = "/polls/show/" + item.id;
-          return (
-            <React.Fragment key={item.id}>
-              <div>
-                <div className="ui relaxed divided list">
-                  <div className="item">
-                    <i className="large edit outline middle aligned icon"/>
-                    <div className="content">
-                      <Link to={linkTo}>
-                        <a className="header">Nazwa ankiety: {item.poll_name}</a>
-                      </Link>
-                      <div className="description">Opis ankiety: {item.poll_description}</div>
+            return (
+              <React.Fragment key={item.id}>
+                <div>
+                  <div className="ui relaxed divided list">
+                    <div className="item">
+                      <i className="large edit outline middle aligned icon"/>
+                      <div className="content">
+                        <Link to={`/polls/show/${item.id}`}>
+                          <a className="header">Nazwa ankiety: {item.poll_name}</a>
+                        </Link>
+                        <div className="description">Opis ankiety: {item.poll_description}</div>
+                      </div>
                     </div>
                   </div>
+                  <p/>
                 </div>
-                <hl/>
-              </div>
-            </React.Fragment>
-          )
-        }
+              </React.Fragment>
+            )
+          }
         )}
       </div>
     )

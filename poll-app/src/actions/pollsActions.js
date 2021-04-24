@@ -1,5 +1,12 @@
-import {GET_POLLS, POLLS_ERROR} from "./types";
+import {
+  GET_POLLS,
+  POLLS_ERROR,
+  GET_POLL,
+  DELETE_POLL,
+  EDIT_POLL
+} from "./types";
 import axios from 'axios'
+
 
 export const getPolls = () => async dispatch => {
   try {
@@ -15,4 +22,26 @@ export const getPolls = () => async dispatch => {
     })
   }
 }
+
+
+export const getPoll = (id) => async dispatch => {
+  const res = await axios.get(`http://localhost:8000/poll/${id}/`)
+  dispatch({
+    type: GET_POLL,
+    payload: res.data
+  })
+}
+
+
+export const deletePoll = (id) => async dispatch => {
+  await axios.delete(`/poll/${id}`);
+  dispatch({type: DELETE_POLL, payload: id})
+}
+
+
+export const editPoll = (id, formValues) => async dispatch => {
+  const response = await axios.put(`/poll/${id}`, formValues);
+  dispatch({type: EDIT_POLL, payload: response.data});
+}
+
 

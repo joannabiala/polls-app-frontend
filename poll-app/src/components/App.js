@@ -40,7 +40,7 @@ const App = () => {
         <Route path="/polls/delete" exact component={PollDelete}/>
         <Route path="/polls/edit" exact component={PollEdit}/>
         <Route path="/polls/list" exact component={PollList}/>
-        <Route path="/polls/show" exact component={PollShow}/>
+        <Route path="/polls/show/:id" exact component={PollShow}/>
         <Route path="/polls/create" exact component={PollCreate}/>
       </BrowserRouter>
     </div>

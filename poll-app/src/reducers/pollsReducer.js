@@ -4,6 +4,8 @@ import {
   DELETE_POLL,
   EDIT_POLL
 } from "../actions/types";
+import _ from 'lodash';
+
 
 const initialState = {
   polls: [],
@@ -23,9 +25,9 @@ export default function (state = initialState, action) {
     case GET_POLL:
       return {...state, [action.payload.id]: action.payload}
     case DELETE_POLL:
-      return {...state, [action.payload.id]: action.payload}
+      return _.omit(state, action.payload)
     case EDIT_POLL:
-      return {...state, [action.payload.id]: action.payload}
+      return state.polls.filter((poll) => poll.id !== action.payload)
     default:
       return state
   }

@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux'
-import {getPolls} from "../../actions/pollsActions";
+import {getPolls, deletePoll} from "../../actions/pollsActions";
 
-class pollList extends Component {
+class PollList extends Component {
   componentDidMount() {
     this.props.getPolls()
-
   }
 
   render() {
@@ -26,9 +25,14 @@ class pollList extends Component {
                       <i className="large edit outline middle aligned icon"/>
                       <div className="content">
                         <Link to={`/polls/show/${item.id}`}>
-                          <a className="header">Nazwa ankiety: {item.poll_name}</a>
+                          <p className="header">Nazwa ankiety: {item.poll_name}</p>
                         </Link>
                         <div className="description">Opis ankiety: {item.poll_description}</div>
+                        <div className="right floated content">
+                          <button onClick={() => this.props.deletePoll(item.id)} className="ui button negative">
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -45,4 +49,11 @@ class pollList extends Component {
 
 const mapStateToProps = (state) => ({polls: state.polls})
 
-export default connect(mapStateToProps, {getPolls})(pollList)
+const mapDispatchToProps = dispatch => {
+  return {
+    getPolls: () => dispatch(getPolls()),
+    deletePoll: (id) => dispatch(deletePoll(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PollList)

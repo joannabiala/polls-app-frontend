@@ -6,7 +6,7 @@ import {
   EDIT_POLL
 } from "./types";
 import axios from 'axios'
-
+import history from "../history";
 
 export const getPolls = () => async dispatch => {
   try {
@@ -34,8 +34,9 @@ export const getPoll = (id) => async dispatch => {
 
 
 export const deletePoll = (id) => async dispatch => {
-  await axios.delete(`/poll/${id}`);
+  await axios.delete(`http://localhost:8000/poll/${id}/`);
   dispatch({type: DELETE_POLL, payload: id})
+  history.push('/polls/list');
 }
 
 

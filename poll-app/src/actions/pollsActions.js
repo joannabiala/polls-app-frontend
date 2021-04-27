@@ -3,7 +3,8 @@ import {
   POLLS_ERROR,
   GET_POLL,
   DELETE_POLL,
-  EDIT_POLL
+  EDIT_POLL,
+  GET_ALL_POLLS
 } from "./types";
 import axios from 'axios'
 import history from "../history";
@@ -31,6 +32,16 @@ export const getPoll = (id) => async dispatch => {
     payload: res.data
   })
 }
+
+
+export const getAllPolls = () => async dispatch => {
+  const res = await axios.get(`http://localhost:8000/allpolls/`)
+  dispatch({
+    type: GET_ALL_POLLS,
+    payload: res.data
+  })
+}
+
 
 
 export const deletePoll = (id) => async dispatch => {

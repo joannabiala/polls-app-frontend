@@ -26,7 +26,7 @@ export const getPolls = () => async dispatch => {
 
 
 export const getPoll = (id) => async dispatch => {
-  const res = await axios.get(`http://localhost:8000/poll/${id}/`)
+  const res = await axios.get(`http://localhost:8000/allpolls/${id}/`)
   dispatch({
     type: GET_POLL,
     payload: res.data
@@ -41,7 +41,6 @@ export const getAllPolls = () => async dispatch => {
     payload: res.data
   })
 }
-
 
 
 export const deletePoll = (id) => async dispatch => {

@@ -6,3 +6,4 @@ export const GET_POLL = 'GET_POLL';
 export const DELETE_POLL = 'DELETE_POLL';
 export const EDIT_POLL = 'EDIT_POLL';
 export const GET_ALL_POLLS = 'GET_ALL_POLLS';
+export const SUBMIT_FORM = 'SUBMIT_FORM';

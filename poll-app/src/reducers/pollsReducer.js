@@ -3,7 +3,8 @@ import {
   GET_POLL,
   DELETE_POLL,
   EDIT_POLL,
-  GET_ALL_POLLS
+  GET_ALL_POLLS,
+  SUBMIT_FORM
 } from "../actions/types";
 import _ from 'lodash';
 
@@ -41,6 +42,8 @@ export default function (state = initialState, action) {
       return (
         state.polls.filter((poll) => poll.id !== action.payload)
       )
+    case SUBMIT_FORM:
+      return {...state,  polls: action.payload}
 
     default:
       return state

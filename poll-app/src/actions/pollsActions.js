@@ -4,7 +4,8 @@ import {
   GET_POLL,
   DELETE_POLL,
   EDIT_POLL,
-  GET_ALL_POLLS
+  GET_ALL_POLLS,
+  SUBMIT_FORM
 } from "./types";
 import axios from 'axios'
 import history from "../history";
@@ -26,7 +27,7 @@ export const getPolls = () => async dispatch => {
 
 
 export const getPoll = (id) => async dispatch => {
-  const res = await axios.get(`http://localhost:8000/allpolls/${id}/`)
+  const res = await axios.get(`http://localhost:8000/poll/${id}/`)
   dispatch({
     type: GET_POLL,
     payload: res.data
@@ -55,4 +56,12 @@ export const editPoll = (id, formValues) => async dispatch => {
   dispatch({type: EDIT_POLL, payload: response.data});
 }
 
+
+export const submitForm = (formValues) => async (dispatch)=>{
+  const response = await axios.post('http://localhost:8000/usersanswers', {...formValues});
+
+  dispatch({type: SUBMIT_FORM, payload: response.data})
+  history.push('/');
+
+};
 

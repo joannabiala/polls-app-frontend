@@ -43,7 +43,7 @@ export default function (state = initialState, action) {
         state.polls.filter((poll) => poll.id !== action.payload)
       )
     case SUBMIT_FORM:
-      return {...state,  polls: action.payload}
+      return {...state,  [action.payload.id]: action.payload}
 
     default:
       return state

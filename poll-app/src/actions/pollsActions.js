@@ -58,7 +58,10 @@ export const editPoll = (id, formValues) => async dispatch => {
 
 
 export const submitForm = (formValues) => async (dispatch)=>{
-  const response = await axios.post('http://localhost:8000/usersanswers', {...formValues});
+  const usersanswers = {...formValues}
+  console.log({...formValues})
+
+  const response = await axios.post('http://localhost:8000/usersanswers/', usersanswers);
 
   dispatch({type: SUBMIT_FORM, payload: response.data})
   history.push('/');

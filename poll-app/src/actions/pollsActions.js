@@ -56,12 +56,25 @@ export const editPoll = (id, formValues) => async dispatch => {
   dispatch({type: EDIT_POLL, payload: response.data});
 }
 
+export const selectPollById = (state, pollId) => {
+  state.poll.poll.find((poll) => poll.id === pollId)
+}
 
-export const submitForm = (formValues) => async (dispatch)=>{
-  const usersanswers = {...formValues}
-  console.log({...formValues})
 
-  const response = await axios.post('http://localhost:8000/usersanswers/', usersanswers);
+export const submitForm = (formValues, polId) => async (dispatch)=>{
+
+  const parsedFormValues = {}
+  for (const [key, value] of Object.entries(formValues)) {
+    const newKey = key.replace("question", "")
+    parsedFormValues[newKey] = parseInt(value)
+  }
+
+  const request = {
+    poll: polId,
+    user_answers: JSON.stringify(parsedFormValues)
+  }
+
+  const response = await axios.post('http://localhost:8000/usersanswers/', request);
 
   dispatch({type: SUBMIT_FORM, payload: response.data})
   history.push('/');

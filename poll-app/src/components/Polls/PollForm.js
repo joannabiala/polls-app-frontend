@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import {getPoll} from "../../actions/pollsActions";
 import {Field, reduxForm} from 'redux-form'
 import {compose} from "redux";
@@ -13,6 +13,7 @@ class PollForm extends React.Component {
     this.props.getPoll(this.props.match.params.id);
     console.log(this.props)
   }
+
 
   renderInput = ({input, label}) => {
 
@@ -43,7 +44,7 @@ class PollForm extends React.Component {
           <ul>
             {this.props.poll.questions.map((question) => {
               return (
-                <div id={question.id}>
+                <div>
                   <li>
                     Treść pytania: {question.question_description}
                   </li>
@@ -55,9 +56,9 @@ class PollForm extends React.Component {
                             <label>
                               <Field
                                 id={answer.id}
-                                name={question.question_description}
+                                name={"question"+question.id}
                                 component={this.renderInput}
-                                value={answer.answer_description}
+                                value={answer.id.toString()}
                                 type="radio"
                               />
                               {answer.answer_description}
@@ -95,5 +96,3 @@ export default compose(
   withRouter,
   connect(mapStateToProps, {getPoll}),
 )(PollForm);
-
-//export default connect(mapStateToProps, {getPoll})(PollForm)
